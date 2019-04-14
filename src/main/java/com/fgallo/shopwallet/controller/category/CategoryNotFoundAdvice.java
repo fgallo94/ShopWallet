@@ -1,5 +1,4 @@
-package com.fgallo.shopwallet.itemcontroller;
-
+package com.fgallo.shopwallet.controller.category;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,12 +7,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class ItemNotFoundAdvice {
+public class CategoryNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(ItemNotFoundException.class)
+    @ExceptionHandler(CategoryNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    private String itemNotFoundHandler(ItemNotFoundException ex) {
+    private String categoryNotFoundHandler(CategoryNotFoundException ex) {
         return ex.getMessage();
     }
 }
+

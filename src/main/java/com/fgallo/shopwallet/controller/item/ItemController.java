@@ -1,4 +1,4 @@
-package com.fgallo.shopwallet.itemcontroller;
+package com.fgallo.shopwallet.controller.item;
 
 import com.fgallo.shopwallet.entity.Item;
 import com.fgallo.shopwallet.repository.ItemRepository;

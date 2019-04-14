@@ -1,4 +1,4 @@
-package com.fgallo.shopwallet.itemcontroller;
+package com.fgallo.shopwallet.controller.item;
 
 public class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException(Long id) {

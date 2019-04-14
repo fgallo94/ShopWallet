@@ -1,4 +1,4 @@
-package com.fgallo.shopwallet.categorycontroller;
+package com.fgallo.shopwallet.controller.category;
 
 public class CategoryNotFoundException extends RuntimeException {
     public CategoryNotFoundException(Long id) {
