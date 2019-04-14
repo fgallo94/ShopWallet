@@ -3,49 +3,43 @@ package com.fgallo.shopwallet.controller.item;
 import com.fgallo.shopwallet.entity.Item;
 import com.fgallo.shopwallet.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("item")
+@Controller
 public class ItemController {
 
     @Autowired
-    private ItemRepository repository;
+    private ItemRepository itemRepository;
 
-    @GetMapping("/")
-    private List<Item> getAll() {
-        return repository.findAll();
+    public List<Item> getAll(){
+        return itemRepository.findAll();
     }
 
-    @PostMapping("/")
-    private Item newItem(@RequestBody Item newItem) {
-        return repository.save(newItem);
+    public Item newItem(Item newItem){
+        return itemRepository.save(newItem);
     }
 
-    @GetMapping("/{id}")
-    private Item getOne(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+    public Item getByIdItem(Long id){
+        return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
     }
 
-    @PutMapping("/{id}")
-    private Item replaceItem(@RequestBody Item newItem, @PathVariable Long id) {
-        return repository.findById(id)
+    public Item replaceItem(Item newItem, Long id){
+        return itemRepository.findById(id)
                 .map(item -> {
                     item.setCode(newItem.getCode());
                     item.setDescription(newItem.getDescription());
                     item.setPrice(newItem.getPrice());
-                    return repository.save(item);
+                    return itemRepository.save(item);
                 }).orElseGet(() -> {
                     newItem.setInternalCode(id);
-                    return repository.save(newItem);
+                    return itemRepository.save(newItem);
                 });
     }
 
-    @DeleteMapping("/{id}")
-    private void deleteOne(@PathVariable Long id) {
-        repository.deleteById(id);
+    public void deleteById(Long id){
+        itemRepository.deleteById(id);
     }
 
 }

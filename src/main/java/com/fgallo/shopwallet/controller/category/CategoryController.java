@@ -1,49 +1,57 @@
 package com.fgallo.shopwallet.controller.category;
 
+import com.fgallo.shopwallet.controller.item.ItemNotFoundException;
 import com.fgallo.shopwallet.entity.Category;
 import com.fgallo.shopwallet.repository.CategoryRepository;
+import com.fgallo.shopwallet.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class CategoryController {
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    private CategoryRepository repository;
+    private ItemRepository itemRepository;
 
-    @GetMapping("/")
-    private List<Category> getAll() {
-        return repository.findAll();
+    public List<Category> getAllCategory() {
+        return categoryRepository.findAll();
     }
 
-    @PostMapping("/")
-    private Category newCategory(@RequestBody Category newCategory) {
-        return repository.save(newCategory);
+    public Category newCategory(Category newCategory) {
+        return categoryRepository.save(newCategory);
     }
 
-    @GetMapping("/{id}")
-    private Category getOne(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
+    public Category findByIdCategory(Long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
-    @PutMapping("/{id}")
-    private Category replaceCategory(@RequestBody Category newCategory, @PathVariable Long id) {
-        return repository.findById(id)
+    public Category replaceCategory(Category newCategory, Long id) {
+        return categoryRepository.findById(id)
                 .map(category -> {
                     category.setCode(newCategory.getCode());
                     category.setDescription(newCategory.getDescription());
-                    return repository.save(category);
+                    return categoryRepository.save(category);
                 }).orElseGet(() -> {
                     newCategory.setInternalCode(id);
-                    return repository.save(newCategory);
+                    return categoryRepository.save(newCategory);
                 });
     }
 
-    @DeleteMapping("/{id}")
-    private void deleteOne(@PathVariable Long id) {
-        repository.deleteById(id);
+    public void deleteByIdCategory(Long id) {
+        categoryRepository.deleteById(id);
     }
+
+    public Category addItemToCategory(Long idCategory, Long idItem) {
+        return categoryRepository.findById(idCategory)
+                .map(category -> {
+                    category.getItemList().add(itemRepository.findById(idItem).orElseThrow(() -> new ItemNotFoundException(idItem)));
+                    return categoryRepository.save(category);
+                }).orElseThrow(() -> new CategoryNotFoundException(idCategory));
+    }
+
 }
