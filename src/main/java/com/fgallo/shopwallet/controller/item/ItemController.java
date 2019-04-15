@@ -1,45 +1,42 @@
 package com.fgallo.shopwallet.controller.item;
 
 import com.fgallo.shopwallet.entity.Item;
-import com.fgallo.shopwallet.repository.ItemRepository;
+import com.fgallo.shopwallet.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("item")
 public class ItemController {
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemService itemService;
 
-    public List<Item> getAll(){
-        return itemRepository.findAll();
+    @GetMapping("/")
+    public List<Item> getAll() {
+        return itemService.getAll();
     }
 
-    public Item newItem(Item newItem){
-        return itemRepository.save(newItem);
+    @PostMapping("/")
+    public Item newItem(@RequestBody Item newItem) {
+        return itemService.newItem(newItem);
     }
 
-    public Item getByIdItem(Long id){
-        return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+    @GetMapping("/{id}")
+    public Item getOne(@PathVariable Long id) {
+        return itemService.getByIdItem(id);
     }
 
-    public Item replaceItem(Item newItem, Long id){
-        return itemRepository.findById(id)
-                .map(item -> {
-                    item.setCode(newItem.getCode());
-                    item.setDescription(newItem.getDescription());
-                    item.setPrice(newItem.getPrice());
-                    return itemRepository.save(item);
-                }).orElseGet(() -> {
-                    newItem.setInternalCode(id);
-                    return itemRepository.save(newItem);
-                });
+    @PutMapping("/{id}")
+    public Item replaceItem(@RequestBody Item newItem, @PathVariable Long id) {
+        return itemService.replaceItem(newItem, id);
     }
 
-    public void deleteById(Long id){
-        itemRepository.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteOne(@PathVariable Long id) {
+        itemService.deleteById(id);
     }
 
 }
