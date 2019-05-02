@@ -3,6 +3,7 @@ package com.fgallo.shopwallet.service;
 import com.fgallo.shopwallet.controller.category.CategoryNotFoundException;
 import com.fgallo.shopwallet.controller.item.ItemNotFoundException;
 import com.fgallo.shopwallet.entity.Category;
+import com.fgallo.shopwallet.entity.Item;
 import com.fgallo.shopwallet.repository.CategoryRepository;
 import com.fgallo.shopwallet.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,20 @@ public class CategoryService {
                     category.getItemList().add(itemRepository.findById(idItem).orElseThrow(() -> new ItemNotFoundException(idItem)));
                     return categoryRepository.save(category);
                 }).orElseThrow(() -> new CategoryNotFoundException(idCategory));
+    }
+
+    public Category removeItemFromCategory(Long idCategory, Long idItem) {
+        return categoryRepository.findById(idCategory)
+                .map(category -> {
+                    category.getItemList().remove(itemRepository.findById(idItem).orElseThrow(() -> new ItemNotFoundException(idItem)));
+                    return categoryRepository.save(category);
+                }).orElseThrow(() -> new CategoryNotFoundException(idCategory));
+    }
+
+    public List<Item> getAllItemsFromCategory(Long idCategory) {
+        return categoryRepository.findById(idCategory)
+                .map(Category::getItemList)
+                .orElseThrow(() -> new CategoryNotFoundException(idCategory));
     }
 
 }

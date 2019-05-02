@@ -1,6 +1,5 @@
 package com.fgallo.shopwallet.entity;
 
-import com.fgallo.shopwallet.entity.Item;
 import com.fgallo.shopwallet.repository.ItemRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +36,7 @@ public class ItemTest {
     }
 
     @Test
-    public void testSetters(){
+    public void testSetters() {
         Item item = Item.builder().build();
         item.setCode("0001");
         item.setDescription("Description test");
