@@ -1,6 +1,5 @@
 package com.fgallo.shopwallet.entity;
 
-import com.fgallo.shopwallet.entity.Category;
 import com.fgallo.shopwallet.repository.CategoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

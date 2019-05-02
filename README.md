@@ -7,21 +7,25 @@ In an early future must be upgraded with new features, Test, CI, Docker and othe
 
 *   ### Item Controller
 
-End-Point | Http Method | Description   
-----------|-------------|------------
-/         |GET          | Get all items.
-/         |POST         | Save item.
-/{id}     |GET          | Get item by id.
-/{id}     |PUT          | Modify item if exists or create new if not exists.
-/{id}     |DELETE       | Delete item by id.
+End-Point      | Http Method | Description   
+---------------|-------------|------------
+/item/         |GET          | Get all items.
+/item/         |POST         | Save item.
+/item/{id}     |GET          | Get item by id.
+/item/{id}     |PUT          | Modify item if exists or create new if not exists.
+/item/{id}     |DELETE       | Delete item by id.
 
 
 *   ### Category Controller
 
-End-Point | Http Method | Description   
-----------|-------------|------------
-/         |GET          | Get all categories.
-/         |POST         | Save category.
-/{id}     |GET          | Get category by id.
-/{id}     |PUT          | Modify category if exists or create new if not exists.
-/{id}     |DELETE       | Delete category by id.
+End-Point                      | Http Method | Description   
+-------------------------------|-------------|------------
+/category/                     |GET          | Get all categories.
+/category/                     |POST         | Save category.
+/category/{id}                 |GET          | Get category by id.
+/category/{id}                 |PUT          | Modify category if exists or create new if not exists.
+/category/{id}                 |DELETE       | Delete category by id.
+/category/{id}/items           |GET          | Get items from category.
+/category/{idCategory}/{idItem}|POST         | Add item to category.
+/category/{idCategory}/{idItem}|DELETE       | Remove an item from category.
+
