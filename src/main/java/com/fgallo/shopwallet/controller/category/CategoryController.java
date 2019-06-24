@@ -5,14 +5,7 @@ import com.fgallo.shopwallet.entity.Item;
 import com.fgallo.shopwallet.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("category")
@@ -20,17 +13,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
-
-    @GetMapping("/")
-    public Page<Category> getAll() {
-        return categoryService.getAllCategory();
-    }
-
-    @PostMapping("/")
-    public Category newCategory(@RequestBody Category newCategory) {
-        return categoryService.newCategory(newCategory);
-    }
 
     @GetMapping("/{id}")
     public Category getOne(@PathVariable Long id) {
@@ -40,11 +22,6 @@ public class CategoryController {
     @PutMapping("/{id}")
     public Category replaceCategory(@RequestBody Category newCategory, @PathVariable Long id) {
         return categoryService.replaceCategory(newCategory, id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteOne(@PathVariable Long id) {
-        categoryService.deleteByIdCategory(id);
     }
 
     @PostMapping("/{idCategory}/{idItem}")

@@ -10,15 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 
-@Controller
+@Service
 public class CategoryService {
 
-    Pageable sortedByCategoryCode =
-            PageRequest.of(0, 3, Sort.by("code"));
     Pageable sortedByItemCode =
             PageRequest.of(0, 3);
 
@@ -28,13 +25,6 @@ public class CategoryService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public Page<Category> getAllCategory() {
-        return categoryRepository.findAll(sortedByCategoryCode);
-    }
-
-    public Category newCategory(Category newCategory) {
-        return categoryRepository.save(newCategory);
-    }
 
     public Category findByIdCategory(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
@@ -50,10 +40,6 @@ public class CategoryService {
                     newCategory.setInternalCode(id);
                     return categoryRepository.save(newCategory);
                 });
-    }
-
-    public void deleteByIdCategory(Long id) {
-        categoryRepository.deleteById(id);
     }
 
     public Category addItemToCategory(Long idCategory, Long idItem) {

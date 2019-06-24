@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@Repository
+@RepositoryRestResource(path = "/category")
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("Select item from Item item where category_internal_code = :id ")
