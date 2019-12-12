@@ -9,10 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("Select item from Item item where category_internal_code = :id ")
     Page<Item> findAllItemsFromCategory(@Param("id") Long id, Pageable pageable);
+    @Query("Select category from Category where code = :code")
+    Optional<Category> findCategoryByCode(@Param("code") String code);
 
 }

@@ -1,7 +1,9 @@
 package com.fgallo.shopwallet.service;
 
 import com.fgallo.shopwallet.controller.item.ItemNotFoundException;
+import com.fgallo.shopwallet.entity.Category;
 import com.fgallo.shopwallet.entity.Item;
+import com.fgallo.shopwallet.repository.CategoryRepository;
 import com.fgallo.shopwallet.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,9 @@ public class ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     public List<Item> getAll() {
         return itemRepository.findAll();
