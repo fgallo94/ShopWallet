@@ -40,9 +40,6 @@ public class CategoryService {
         return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
-    public Category findByCode(String code){
-        return categoryRepository.findCategoryByCode(code).orElseThrow(() -> new CategoryNotFoundException(1l));
-    }
     public Category replaceCategory(Category newCategory, Long id) {
         return categoryRepository.findById(id)
                 .map(category -> {

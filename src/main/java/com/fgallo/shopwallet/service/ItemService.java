@@ -16,9 +16,6 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    @Autowired
-    private CategoryService categoryService;
-
     public List<Item> getAll() {
         return itemRepository.findAll();
     }

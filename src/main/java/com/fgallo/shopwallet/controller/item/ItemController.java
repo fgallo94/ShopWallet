@@ -3,6 +3,7 @@ package com.fgallo.shopwallet.controller.item;
 import com.fgallo.shopwallet.entity.Item;
 import com.fgallo.shopwallet.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +16,11 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public List<Item> getAll() {
-        return itemService.getAll();
+        List<Item> itemsToReturn =  itemService.getAll();
+        return itemsToReturn;
     }
 
     @PostMapping("/")

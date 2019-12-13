@@ -1,5 +1,6 @@
 package com.fgallo.shopwallet.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,7 @@ public class Category {
     private Long internalCode;
     private String code;
     private String description;
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true)
     private List<Item> itemList;
 }

@@ -27,7 +27,6 @@ public class Item {
     private String code;
     private String description;
     private BigDecimal price;
-    @JsonBackReference
     @ManyToOne
     private Category category;
 
